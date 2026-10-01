@@ -127,7 +127,7 @@ weather_df |>
 Violin plots (looks a bit like combined boxplot and density plot)
 ```{r}
 weather_df |> 
-  ggplot(aes(x = name, y = tmax)) +
+  ggplot(aes(x = name, y = tmax, fill = name)) +
   geom_violin()
 ```
 
