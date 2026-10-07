@@ -318,7 +318,7 @@ weather_df |>
 ``` r
 weather_df |> 
   ggplot(aes(x = tmin, y = tmax, color = name)) +
-  geom_point(alpha = .05)
+  geom_point(alpha = .5)
 ```
 
     ## Warning: Removed 17 rows containing missing values or values outside the scale range
@@ -331,7 +331,7 @@ weather_df |>
 ``` r
 weather_df |> 
   ggplot(aes(x = tmin, y = tmax, color = name)) +
-  geom_point(alpha = .05) +
+  geom_point(alpha = .5) +
   labs(
     title = "Temperature plot",
     x = "Minimum daily temperature (C)",
@@ -344,3 +344,79 @@ weather_df |>
     ## (`geom_point()`).
 
 ![](02_viz_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+## Scales
+
+Start with the same plot
+
+``` r
+weather_df |> 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  scale_x_continuous(
+    breaks = c(-15, 0, 15),
+    labels = c("-15 C", "0", "15")
+  ) +
+  scale_y_continuous(
+    trans = "sqrt",
+    position = "right"
+  )
+```
+
+    ## Warning in transformation$transform(x): NaNs produced
+
+    ## Warning in scale_y_continuous(trans = "sqrt", position = "right"): sqrt
+    ## transformation introduced infinite values.
+
+    ## Warning: Removed 142 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](02_viz_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+
+Look at color scales
+
+``` r
+weather_df |> 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  scale_color_hue(
+    name = "Location",
+    h = c(100, 300))
+```
+
+    ## Warning: Removed 17 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](02_viz_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+
+``` r
+weather_df |> 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis(
+    name = "Location",
+    discrete = TRUE)
+```
+
+    ## Warning: Removed 17 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](02_viz_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
