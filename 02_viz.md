@@ -490,3 +490,24 @@ options(
 scale_colour_discrete = scale_color_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
+
+## Data args in ‘geom’
+
+``` r
+central_park =
+  weather_df |> 
+  filter(name == "CentralPark_NY")
+
+molokai =
+  weather_df |> 
+  filter(name == "Molokai_HI")
+
+ggplot(data = molokai, aes(x = date, y = tmax, color = name)) +
+  geom_point() +
+  geom_line(data = central_park)
+```
+
+    ## Warning: Removed 1 row containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](02_viz_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
